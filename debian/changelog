@@ -1,0 +1,12 @@
+sqdr-g3log (2.2.0-1) unstable; urgency=medium
+
+  * Pulling changes from official 2.2 version
+  * Squadrone : Fix bug where Filesink was dropping 99/100 messages
+
+ -- Ryan Ammoury <ryan.ammoury@squadrone-system.com>  Tue, 14 Feb 2023 08:52:56 +0100
+
+sqdr-g3log (2.1.0-1) unstable; urgency=medium
+
+  * Initial release.
+
+ -- Ryan Ammoury <ryan.ammoury@squadrone-system.com>  Fri, 23 Dec 2022 23:23:07 +0100
