@@ -1,0 +1,9 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: sqdr-control
+
+Files: *
+Copyright: 2018 Squadrone System
+License: Proprietary
+ This package is edited, owned and distributed by Squadrone System.
+ .
+ You cannot redistribute it and/or modify it.

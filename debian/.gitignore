@@ -1,0 +1,15 @@
+*/
+!doc.sh/
+!source/
+*.ddeb
+*.deb
+*.build
+*.buildinfo
+*.changes
+*.upload
+*.tar.gz
+*.zip
+debhelper-build-stamp
+files
+*.substvars
+*.backup

@@ -1,0 +1,14 @@
+Source: sqdr-g3log
+Section: devel
+Priority: optional
+Maintainer: Ryan Ammoury <ryan.ammoury@squadrone-system.com>
+Build-Depends:
+  debhelper,
+  cmake,
+Standards-Version: 4.1.2
+
+Package: sqdr-g3log
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+Description: Squadrone System's packaged g3log library
+ Packaged in /opt/sqdr

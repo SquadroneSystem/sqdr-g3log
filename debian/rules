@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+# Install to Squadrone's custom /opt/sqdr prefix
+CMAKE_OPTS += -DCMAKE_INSTALL_PREFIX=/opt/sqdr
+
+# Force install libraries to /opt/sqdr/lib otherwise installed in architucture dependent location (ie. /opt/sqdr/lib/X86_64-linux-gnu)
+CMAKE_OPTS += -DCMAKE_INSTALL_LIBDIR=lib
+
+# Add -fPIC option
+CMAKE_OPTS += -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+
+CMAKE_OPTS += -DADD_FATAL_EXAMPLE=OFF
+
+CMAKE_OPTS += -DCMAKE_BUILD_TYPE=Release
+
+CMAKE_OPTS += -DG3_SHARED_LIB=OFF
+
+%:
+	dh $@ --buildsystem=cmake
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(CMAKE_OPTS)
