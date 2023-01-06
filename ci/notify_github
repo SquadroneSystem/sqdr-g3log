@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Integrate Jenkins build status with GitHub
+# Have a look at https://docs.github.com/en/rest/commits/statuses for more.
+# Interface:
+#   $1: GIT_COMMIT : Git jenkins plugin commit environment variable
+#   $2: ACCESS_TOEN : GitHub access token environment variable
+#   $3: BUILD_URL: Jenkins build URL environment variable
+#   $4: STATE : success, failure, pending
+
+LOG_FILE=/tmp/curl_out.log
+
+GIT_COMMIT=$1
+ACCESS_TOKEN=$2
+BUILD_URL=$3
+STATE=$4
+
+GIT_REPO_BASENAME=$(basename -s .git `git remote get-url origin`)
+
+GH_URL="https://api.github.com/repos/SquadroneSystem/${GIT_REPO_BASENAME}/statuses/$GIT_COMMIT"
+JENKINS_URL="${BUILD_URL}console"
+
+curl -s -w "%{http_code}" "$GH_URL" \
+  -H "Authorization: token $ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  -d "{\"state\": \"$STATE\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"$JENKINS_URL\"}" > ${LOG_FILE}
+
+HTTP_RETURN_CODE=$(tail -n 1 ${LOG_FILE})
+STATUS_CODE=0
+
+if [ $HTTP_RETURN_CODE -ge 400 -a $HTTP_RETURN_CODE -le 599 ]
+then
+    echo "Error while notifying GitHub: ${HTTP_RETURN_CODE}"
+    head -n -1 ${LOG_FILE}
+    STATUS_CODE=1
+fi
+
+rm ${LOG_FILE}
+exit $STATUS_CODE
