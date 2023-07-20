@@ -9,7 +9,10 @@ def notifyGithub(build_arch, status) {
 Map nodes = [
     "amd64/ubuntu/focal": "ec2-fleet-amd64",
     "arm64/ubuntu/focal": "ec2-fleet-arm64",
-    "armhf/raspbian/buster": "ec2-fleet-arm64"
+    "armhf/raspbian/buster": "ec2-fleet-arm64",
+    "arm64/ubuntu/jammy": "ec2-fleet-arm64",
+    "amd64/ubuntu/jammy": "ec2-fleet-amd64",
+    "armhf/rapsbian/bullseye": "ec2-fleet-arm64"
 ]
 
 Map tasks = [:]
