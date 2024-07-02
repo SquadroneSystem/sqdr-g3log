@@ -1,20 +1,25 @@
 @Library('sqdr-jenkins-lib') _
 
 git_repository = "sqdr-g3log"
+git_main_branch = "sqdr-main"
 github_credentials_id = "github_personnal_access_token"
 git_credentials_id = "ci-squadrone"
 build_dirs = ['.']
 Map nodes = [
     "amd64/ubuntu/focal": "ec2-fleet-amd64",
     "amd64/ubuntu/jammy": "ec2-fleet-amd64",
-    //"amd64/debian/buster": "ec2-fleet-amd64",
-    "amd64/debian/bullseye": "ec2-fleet-amd64",
+    "amd64/ubuntu/noble": "ec2-fleet-amd64",
+    
     "arm64/ubuntu/focal": "ec2-fleet-arm64",
     "arm64/ubuntu/jammy": "ec2-fleet-arm64",
-    //"arm64/debian/buster": "ec2-fleet-arm64",
-    "arm64/debian/bullseye": "ec2-fleet-arm64",
+    "arm64/ubuntu/noble": "ec2-fleet-arm64",
+
     "armhf/raspbian/buster": "ec2-fleet-arm64",
-    "armhf/rapsbian/bullseye": "ec2-fleet-arm64"
+    "armhf/raspbian/bullseye": "ec2-fleet-arm64",
+
+    "arm64/debian/buster": "ec2-fleet-arm64",
+    "arm64/debian/bullseye": "ec2-fleet-arm64",
+    "arm64/debian/bookworm": "ec2-fleet-arm64",
 ]
 
 Map tasks = [:]
@@ -36,7 +41,7 @@ nodes.each { build_arch, label ->
 
                 sqdrBuild.debianPackages(build_arch: build_arch, build_dirs: build_dirs)
 
-                if (env.BRANCH_NAME == 'sqdr-main') {
+                if (env.BRANCH_NAME == git_main_branch) {
                     sqdrDeploy.debianPackages(build_arch: build_arch)
                 }
 
